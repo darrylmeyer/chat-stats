@@ -1,6 +1,6 @@
 # whatsapp chat parser
 
-This repo is for a script I wrote for generating some stats about whatsapp chat history files.
+This repo is for a script I wrote for generating some stats about a whatsapp chat history file.
 It works with chats between two people or group chats.
 It will display the results in terminal as well as write it to a file (stats.txt).
 
@@ -30,7 +30,7 @@ It will also generate stats for the chat, including:
 
 ## whatsapp_stats.py
 
-The main script. This script does all the processing of history file.
+The main script. This script does all the processing of the history file.
 
 ### Usage
 
@@ -51,11 +51,11 @@ For the sentiment analysis I'm using [TextBlob](https://github.com/sloria/TextBl
 For the stopwords list I extended the English Google stopwords list found at [https://code.google.com/p/stop-words/](https://code.google.com/p/stop-words/).
 
 I consulted the following StackOverflow posts:
-https://stackoverflow.com/questions/3277503/python-read-file-line-by-line-into-array
-https://stackoverflow.com/questions/8689795/how-can-i-remove-non-ascii-characters-but-leave-periods-and-spaces-using-python
-https://stackoverflow.com/questions/17507876/trying-to-count-words-in-a-string-python
-https://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value
-https://stackoverflow.com/questions/5214578/python-print-string-to-text-file
+* https://stackoverflow.com/questions/3277503/python-read-file-line-by-line-into-array
+* https://stackoverflow.com/questions/8689795/how-can-i-remove-non-ascii-characters-but-leave-periods-and-spaces-using-python
+* https://stackoverflow.com/questions/17507876/trying-to-count-words-in-a-string-python
+* https://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value
+* https://stackoverflow.com/questions/5214578/python-print-string-to-text-file
 
 ## Disclaimer
 
