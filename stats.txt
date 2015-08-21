@@ -1,0 +1,61 @@
+Name: Alice
+	Total messages: 3
+	Average message length (characters): 27.33
+	Average message length (words): 6.33
+	Maximum message length (words): 10
+	Minimum message length (words): 3
+	Images sent: 0
+	Videos sent: 0
+	Positive messages: 2 Percentage of total: 66.67%
+	Neutral messages: 0 Percentage of total: 0.0%
+	Negative messages: 1 Percentage of total: 33.33%
+	Most common word: Okay
+		Said 1 times
+	Second most common word: very
+		Said 1 times
+	Third most common word: Hey
+		Said 1 times
+
+Name: Bob
+	Total messages: 2
+	Average message length (characters): 24.5
+	Average message length (words): 5.0
+	Maximum message length (words): 6
+	Minimum message length (words): 4
+	Images sent: 0
+	Videos sent: 0
+	Positive messages: 2 Percentage of total: 100.0%
+	Neutral messages: 0 Percentage of total: 0.0%
+	Negative messages: 0 Percentage of total: 0.0%
+	Most common word: awesome
+		Said 1 times
+	Second most common word: Good
+		Said 1 times
+	Third most common word: thanks
+		Said 1 times
+
+Total messages in chat: 5
+
+Most messages: 3
+Percent of total: 60.0%
+By: Alice
+
+Least messages: 2
+Percent of total: 40.0%
+By: Bob
+
+Most Negative Message: It's a very cold and miserable day here.
+Polarity: -0.89
+By: Alice
+
+Most Positive Message: That's awesome.
+Polarity: 1.0
+By: Bob
+
+Longest Message length (characters): 42
+Longest Message: It's a very cold and miserable day here.
+By: Alice
+
+Shortest Message length (characters): 17
+Shortest Message: That's awesome.
+By: Bob
