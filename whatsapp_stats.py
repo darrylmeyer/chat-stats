@@ -40,6 +40,21 @@ def chat_parser(filename, stopwords_filename):
 
 	print_results()
 
+# Checks which operating system the chat history file is from.
+def os_check(line):
+	osx_pattern = re.compile(r'\d\d\d\d/\d\d/\d\d')
+	android_pattern = re.compile(r'\d\d/\d\d/\d\d\d\d')
+	
+	osx_match = osx_pattern.match(line)
+	android_match  = android_pattern.match(line)
+
+	if osx_match:
+	    return "osx"
+	elif android_match:
+		return "android"
+	else:
+		return "no match"
+
 # Reads the stopwords file and removes end of lines from the list
 def setup_stopwords(stopwords_filename):
 	global stopwords
@@ -63,16 +78,41 @@ def write_file(content):
 	with open("stats.txt", "w") as output_file:
 		output_file.write(content)
 
+# Spits the line into an array with form: [date, name, message]
+def get_line_array(line):
+
+	line = line.strip()
+	line = line.lstrip("\xef\xbb\xbf") # Beginning of line chars
+
+	if not all(char.isspace() for char in line):
+		os = os_check(line)
+			
+		if os == "osx":
+			return line.split(": ")
+		elif os == "android":
+			print(line)
+			line_array = []
+			temp_line_array = line.split(" - ")
+
+			line_array.append(temp_line_array[0])
+			temp_line_array = temp_line_array[1].split(": ")
+
+			line_array.append(temp_line_array[0])
+			line_array.append(temp_line_array[1])	
+
+			return line_array
+		else:
+			print("This line could not be parsed: " + line)
+
 # Iterates through each line in the chat to determine stats
 def main_loop(chat):
 	names = []
 
 	for line in chat:
 
-		line_arr = line.split(": ")
+		line_arr = get_line_array(line)
 
-		if len(line_arr) >= 3:
-
+		if line_arr and len(line_arr) >= 3:
 			name = line_arr[1]
 			message = line_arr[2]
 

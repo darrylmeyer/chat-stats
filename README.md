@@ -50,6 +50,12 @@ You do not have to specify the stopwords file, it will then just use the default
 
 Contains a list of words that you wish to exclude from the most common words count. Contains words like a, an, the, I etc.
 
+## Known Issues
+
+Chat history files exported from different Operating Systems have different formats. Currently this script only works for files exported from WhatsApp running on an OSX device or an Android device. The script will output "This line could not be parsed: " followed by the line if that line in the chat history file does not follow a recognized format. This output will not be included in the stats.txt output.
+
+Multi-line messages. The script sees each line as a complete message so if a message runs over multiple lines it only parses the first line of the multi-line message.
+
 ## Sources 
 
 For the sentiment analysis I'm using [TextBlob](https://github.com/sloria/TextBlob).

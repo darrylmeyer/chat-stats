@@ -1,6 +1,6 @@
 Name: Alice
 	Total messages: 3
-	Average message length (characters): 27.33
+	Average message length (characters): 25.33
 	Average message length (words): 6.33
 	Maximum message length (words): 10
 	Minimum message length (words): 3
@@ -19,7 +19,7 @@ Name: Alice
 
 Name: Bob
 	Total messages: 2
-	Average message length (characters): 24.5
+	Average message length (characters): 22.5
 	Average message length (words): 5.0
 	Maximum message length (words): 6
 	Minimum message length (words): 4
@@ -54,10 +54,10 @@ Most Positive Message: That's awesome.
 Polarity: 1.0
 By: Bob
 
-Longest Message length (characters): 42
+Longest Message length (characters): 40
 Longest Message: It's a very cold and miserable day here.
 By: Alice
 
-Shortest Message length (characters): 17
+Shortest Message length (characters): 15
 Shortest Message: That's awesome.
 By: Bob
