@@ -1,0 +1,9 @@
+﻿20/08/2015, 10:31 - Alice: Hey Bob, how are you? :)
+
+20/08/2015, 10:54 - Bob: Good thanks, and you Alice? :)
+
+20/08/2015, 11:01 - Alice: Okay thanks.
+
+20/08/2015, 11:29 - Bob: That's awesome.
+
+20/08/2015, 11:10 - Alice: It's a very cold and miserable day here.

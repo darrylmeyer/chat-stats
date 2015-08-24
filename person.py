@@ -23,6 +23,7 @@ class Person:
       self.max_message_length = 0 # Count of words
       self.min_message_length = 100 # Count of words
       self.common_words = {}
+      self.os = ""
 
    def to_string(self):
       string = "Name: " + self.name
@@ -31,10 +32,12 @@ class Person:
       string += "\n\tAverage message length (words): " + str(round(self.word_count / float(self.message_count) ,2))
       string += "\n\tMaximum message length (words): " + str(self.max_message_length)
       string += "\n\tMinimum message length (words): " + str(self.min_message_length)
-      string += "\n\tImages sent: " + str(self.image_count)
-      string += "\n\tVideos sent: " + str(self.video_count)
-      #PVDW - Added Media for Android Support
-      string += "\n\tMedia sent (Images + Videos): " + str(self.media_count)
+      if self.os == "osx":
+         string += "\n\tImages sent: " + str(self.image_count)
+         string += "\n\tVideos sent: " + str(self.video_count)
+      elif self.os == "android":
+         #PVDW - Added Media for Android Support
+         string += "\n\tMedia sent (Images + Videos): " + str(self.media_count)
       string += "\n\tPositive messages: " + str(self.positive_count) + " Percentage of total: " + str(round((self.positive_count/float(self.message_count))*100, 2)) + "%"
       string += "\n\tNeutral messages: " + str(self.neutral_count) + " Percentage of total: " + str(round((self.neutral_count/float(self.message_count))*100, 2)) + "%"
       string += "\n\tNegative messages: " + str(self.negative_count) + " Percentage of total: " + str(round((self.negative_count/float(self.message_count))*100, 2)) + "%"

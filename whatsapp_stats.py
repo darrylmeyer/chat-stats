@@ -29,12 +29,20 @@ shortest_message = ""
 shortest_message_person = ""
 most_messages = ""
 least_messages = ""
+chat_os = "" # flag for which OS the chat file was exported from
 
 def chat_parser(filename, stopwords_filename):
 	global stopwords
-	
+	global chat_os
+
 	chat = readfile(filename)
 	setup_stopwords(stopwords_filename)
+
+	# Set global OS flag
+	first_line = chat[0]
+	first_line = first_line.strip()
+	first_line = first_line.lstrip("\xef\xbb\xbf") # Beginning of line chars
+	chat_os = os_check(first_line)
 
 	main_loop(chat)
 
@@ -81,26 +89,24 @@ def write_file(content):
 # Spits the line into an array with form: [date, name, message]
 def get_line_array(line):
 
-	line = line.strip()
-	line = line.lstrip("\xef\xbb\xbf") # Beginning of line chars
-
 	if not all(char.isspace() for char in line):
 		os = os_check(line)
 			
 		if os == "osx":
 			return line.split(": ")
 		elif os == "android":
-			print(line)
 			line_array = []
 			temp_line_array = line.split(" - ")
 
-			line_array.append(temp_line_array[0])
-			temp_line_array = temp_line_array[1].split(": ")
+			if len(temp_line_array) >= 2:
+				line_array.append(temp_line_array[0])
+				temp_line_array = temp_line_array[1].split(": ")
 
-			line_array.append(temp_line_array[0])
-			line_array.append(temp_line_array[1])	
+				if len(temp_line_array) >= 2:
+					line_array.append(temp_line_array[0])
+					line_array.append(temp_line_array[1])	
 
-			return line_array
+					return line_array
 		else:
 			print("This line could not be parsed: " + line)
 
@@ -109,6 +115,8 @@ def main_loop(chat):
 	names = []
 
 	for line in chat:
+		line = line.strip()
+		line = line.lstrip("\xef\xbb\xbf") # Beginning of line chars
 
 		line_arr = get_line_array(line)
 
@@ -123,15 +131,24 @@ def main_loop(chat):
 
 			person = get_person(name)
 
-			if is_image(message):
-				person.image_count += 1
-			elif is_video(message):
-				person.video_count += 1
-			#PVDW - Added Media for Android Support
-			elif is_media(message):
-				person.media_count += 1
-                                      
-			else:
+			person.os = chat_os
+
+			media = False # flag for when the message is a media item
+			
+			if chat_os == "osx":
+				if is_image(message):
+					media = True
+					person.image_count += 1
+				elif is_video(message):
+					media = True
+					person.video_count += 1
+			elif chat_os == "android":
+				#PVDW - Added Media for Android Support
+				if is_media(message):
+					media = True
+					person.media_count += 1
+                             
+			if not media:
 				# Get the message sentiment
 				polarity = get_polarity(message)
 
