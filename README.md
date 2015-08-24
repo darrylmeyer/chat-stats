@@ -28,6 +28,10 @@ It will also generate stats for the chat, including:
 * Longest message sent, who sent it and its' length (characters)
 * Shortest message sent, who sent it and it's length (characters)
 
+## Dependecies
+
+This script requires the [TextBlob](https://github.com/sloria/TextBlob) package to be installed.
+
 ## whatsapp_stats.py
 
 The main script. This script does all the processing of the history file.
@@ -35,6 +39,8 @@ The main script. This script does all the processing of the history file.
 ### Usage
 
 `python whatsapp_stats.py <filename> [<stopwords_filename>]`
+
+e.g. `python whatsapp_stats.py "WhatsApp Chat Alice.txt"
 
 Where `<filename>` is the whatsapp chat history file e.g. WhatsApp Chat Alice.txt
 
