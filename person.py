@@ -18,6 +18,8 @@ class Person:
       self.word_count = 0
       self.image_count = 0
       self.video_count = 0
+      #PVDW - Added Media for Android Support
+      self.media_count = 0
       self.max_message_length = 0 # Count of words
       self.min_message_length = 100 # Count of words
       self.common_words = {}
@@ -31,6 +33,8 @@ class Person:
       string += "\n\tMinimum message length (words): " + str(self.min_message_length)
       string += "\n\tImages sent: " + str(self.image_count)
       string += "\n\tVideos sent: " + str(self.video_count)
+      #PVDW - Added Media for Android Support
+      string += "\n\tMedia sent (Images + Videos): " + str(self.media_count)
       string += "\n\tPositive messages: " + str(self.positive_count) + " Percentage of total: " + str(round((self.positive_count/float(self.message_count))*100, 2)) + "%"
       string += "\n\tNeutral messages: " + str(self.neutral_count) + " Percentage of total: " + str(round((self.neutral_count/float(self.message_count))*100, 2)) + "%"
       string += "\n\tNegative messages: " + str(self.negative_count) + " Percentage of total: " + str(round((self.negative_count/float(self.message_count))*100, 2)) + "%"
@@ -40,11 +44,16 @@ class Person:
 
    def get_common_words(self):
       ordered_dict = collections.OrderedDict(sorted(self.common_words.items(), key=lambda t: t[1], reverse=True))
-      string = "\n\tMost common word: " + str(ordered_dict.items()[0][0])
-      string += "\n\t\tSaid " + str(ordered_dict.items()[0][1]) + " times"
-      string += "\n\tSecond most common word: " + str(ordered_dict.items()[1][0])
-      string += "\n\t\tSaid " + str(ordered_dict.items()[1][1]) + " times"
-      string += "\n\tThird most common word: " + str(ordered_dict.items()[2][0])
-      string += "\n\t\tSaid " + str(ordered_dict.items()[2][1]) + " times"
+      if len(ordered_dict)>= 1:
+         string = "\n\tMost common word: " + str(ordered_dict.items()[0][0])
+         string += "\n\t\tSaid " + str(ordered_dict.items()[0][1]) + " times"
+      if len(ordered_dict)>= 2:
+         string += "\n\tSecond most common word: " + str(ordered_dict.items()[1][0])
+         string += "\n\t\tSaid " + str(ordered_dict.items()[1][1]) + " times"
+      if len(ordered_dict)>= 3:
+         string += "\n\tThird most common word: " + str(ordered_dict.items()[2][0])
+         string += "\n\t\tSaid " + str(ordered_dict.items()[2][1]) + " times"
+      else:
+         string = "\n\tNo common words found"
 
       return string

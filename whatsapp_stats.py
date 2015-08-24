@@ -87,6 +87,10 @@ def main_loop(chat):
 				person.image_count += 1
 			elif is_video(message):
 				person.video_count += 1
+			#PVDW - Added Media for Android Support
+			elif is_media(message):
+				person.media_count += 1
+                                      
 			else:
 				# Get the message sentiment
 				polarity = get_polarity(message)
@@ -134,6 +138,14 @@ def update_common_words(person, message):
 				else:
 					person.common_words[word] = 1
 
+
+# PVDW - Return true is message was Media - Android compatibility
+def is_media(message):
+	if message.rstrip() == "<Media omitted>":
+		return True
+	else:
+		return False
+	
 # Return true is message was an image
 def is_image(message):
 	if message.rstrip() == "<image omitted>":

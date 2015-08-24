@@ -6,6 +6,7 @@ Name: Alice
 	Minimum message length (words): 3
 	Images sent: 0
 	Videos sent: 0
+	Media sent (Images + Videos): 0
 	Positive messages: 2 Percentage of total: 66.67%
 	Neutral messages: 0 Percentage of total: 0.0%
 	Negative messages: 1 Percentage of total: 33.33%
@@ -24,6 +25,7 @@ Name: Bob
 	Minimum message length (words): 4
 	Images sent: 0
 	Videos sent: 0
+	Media sent (Images + Videos): 0
 	Positive messages: 2 Percentage of total: 100.0%
 	Neutral messages: 0 Percentage of total: 0.0%
 	Negative messages: 0 Percentage of total: 0.0%
