@@ -190,10 +190,10 @@ def update_common_words(person, message):
 	for word in words:
 		if not word.isspace() and len(word) > 2:
 			if word.lower() not in stopwords:
-				if word in person.common_words:
-					person.common_words[word] += 1
+				if word.lower() in person.common_words:
+					person.common_words[word.lower()] += 1
 				else:
-					person.common_words[word] = 1
+					person.common_words[word.lower()] = 1
 
 
 # PVDW - Return true is message was Media - Android compatibility
