@@ -27,13 +27,14 @@ most_negative_message_person = ""
 longest_message_length = 0
 longest_message = ""
 longest_message_person = ""
-shortest_message_length = 0
+shortest_message_length = 999 #PVDW - Update to compare message length to for shortest message
 shortest_message = ""
 shortest_message_person = ""
 most_messages = ""
 least_messages = ""
 chat_os = "" # flag for which OS the chat file was exported from
 global_dict = {} #PVDW Global Dictionary for most common words in chat
+ascii_check = 0 #PVDW Variable to keep result of ASCII Check
 
 def chat_parser(filename, stopwords_filename):
 	global stopwords
@@ -87,7 +88,7 @@ def readfile(filename):
 
 # Writes the stats to a file
 def write_file(content):
-	with open("stats.txt", "w") as output_file:
+	with open("stats_"+filename+".txt", "w") as output_file: #PVDW - Output file now defaults to stats_filename
 		output_file.write(content)
 
 # Spits the line into an array with form: [date, name, message]
@@ -285,14 +286,32 @@ def set_stats(message, polarity, name):
 
 	message_length = len(message)
 
-	if message_length > longest_message_length:
-		longest_message_length = message_length
-		longest_message = message
-		longest_message_person = name
-	elif message_length < shortest_message:
-		shortest_message_length = message_length
-		shortest_message = message
-		shortest_message_person = name
+#PVDW - First check if string is not a special character (or an emoticon placeholder) before confirming it as the shortest string.
+#PVDW - Emoticon placeholders are processed as 4 different characters in some cases, so it will be ignored if the message lenght <5 and the message is non-ascii.
+	words = re.split(r'[^0-9A-Za-z]+', message) #PVDW - Split message to see if a message has more than one word.
+	if message_length < 5:
+		try:
+			message.decode('ascii')
+		except UnicodeDecodeError:
+			ascii_check = 0
+			#Message is not ascii
+		else:
+			ascii_check = 1
+			#Message is ascii
+	else:
+		ascii_check = 1
+		#Message might contain ascii
+
+		if message_length > longest_message_length:
+			longest_message_length = message_length
+			longest_message = message
+			longest_message_person = name
+		elif message_length < shortest_message_length: #PVDW - Changed to compare length of message (was previous comparing to shortest_message not it's length).
+			if ascii_check > 0: #PVDW - Additional condition to check if the message is bigger than 4 characters or else contains only ascii.
+				if len(words) > 2: #PVDW - Check that the length of the message is more than a word long. Single-word messages should be banned from existance. 
+					shortest_message_length = message_length
+					shortest_message = message
+					shortest_message_person = name
 
 # Return a string of who sent the most and least messages
 def get_min_max():
