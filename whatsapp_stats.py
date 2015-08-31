@@ -10,6 +10,9 @@ import sys
 from textblob import TextBlob
 import string
 from person import Person
+#PVDW Import Collections to use for global dictionary list 
+import collections
+from collections import defaultdict
 
 # Global stats variables
 people = []
@@ -30,6 +33,7 @@ shortest_message_person = ""
 most_messages = ""
 least_messages = ""
 chat_os = "" # flag for which OS the chat file was exported from
+global_dict = {} #PVDW Global Dictionary for most common words in chat
 
 def chat_parser(filename, stopwords_filename):
 	global stopwords
@@ -195,6 +199,14 @@ def update_common_words(person, message):
 				else:
 					person.common_words[word.lower()] = 1
 
+#PVDW Add to Global dictionary to find most commonly used words in chat
+	for word in words:
+		if not word.isspace() and len(word) > 2:
+			if word.lower() not in stopwords:
+				if word.lower() in global_dict:
+					global_dict[word.lower()] += 1
+				else:
+					global_dict[word.lower()] = 1
 
 # PVDW - Return true is message was Media - Android compatibility
 def is_media(message):
@@ -317,6 +329,22 @@ def get_word_count(message):
 
 	return len(words)
 
+#PVDW - Function to Get Global dictionary most used words
+def get_global_common_words():
+	ordered_global_dict = collections.OrderedDict(sorted(global_dict.items(), key=lambda t: t[1], reverse=True))
+	if len(ordered_global_dict)>= 1:
+		string = "\nMost common word in Chat: " + str(ordered_global_dict.items()[0][0])
+		string += "\n\tSaid " + str(ordered_global_dict.items()[0][1]) + " times"
+	if len(ordered_global_dict)>= 2:
+		string += "\nSecond most common word in Chat:  " + str(ordered_global_dict.items()[1][0])
+		string += "\n\tSaid " + str(ordered_global_dict.items()[1][1]) + " times"
+	if len(ordered_global_dict)>= 3:
+		string += "\nThird most common word in Chat:  " + str(ordered_global_dict.items()[2][0])
+		string += "\n\tSaid " + str(ordered_global_dict.items()[2][1]) + " times"
+	else:
+		string = "\nNo Global common words found"
+	return string
+
 # Prints the results to standard out and write them to a file
 def print_results():
 	string = get_min_max()
@@ -332,7 +360,9 @@ def print_results():
 	string += "\nBy: " + longest_message_person + "\n"
 	string += "\nShortest Message length (characters): " + str(shortest_message_length)
 	string += "\nShortest Message: " + str(shortest_message).rstrip()
-	string += "\nBy: " + shortest_message_person + "\n"
+	string += "\nBy: " + shortest_message_person + "\n\n"
+	#PVDW Most Commonly Used Words
+	string += get_global_common_words()
 
 	print(string)
 	write_file(string)
