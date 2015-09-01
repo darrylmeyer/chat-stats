@@ -69,7 +69,29 @@ I consulted the following StackOverflow posts:
 * https://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value
 * https://stackoverflow.com/questions/5214578/python-print-string-to-text-file
 
+## dict_db.py
+
+A secondary script that is not needed by the first script. This script processes the history file to build a database of the most used words in a chat, along with the sentement of each word.
+
+### dict_db.py Usage
+
+`python dict_db.py <filename> [<number of records to process>]`
+
+e.g. `python dict_db.py "WhatsApp Chat Alice.txt" [7]
+
+Where `<filename>` is the whatsapp chat history file e.g. WhatsApp Chat Alice.txt
+
+If you do not specify the number of records to process, it will default to 500 records.
+
+## dict_db.py stopwords.txt
+
+This script uses the same stopwords file as the main script, but defaults to "stopwords.txt" without the option to change the name at runtime.
+
+## dict_db.py Known Issues
+
+The script can take 20+ milliseconds to process one word in the dictionary. In cases where 5000 records need to be processed, it can take upward of 120 seconds on slower machines.
+
 ## Disclaimer
 
-This script may break for whatever reason. I did not do extensive testing on it.
+The scripts may break for whatever reason. I did not do extensive testing on it.
 It will also probably take a long time to generate stats for long group chats with many people part of the group.
