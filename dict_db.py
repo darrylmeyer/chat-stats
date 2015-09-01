@@ -22,7 +22,8 @@ global_dict = {}
 ascii_check = 0 
 stopwords_filename = "stopwords.txt"
 num_records = 0
-
+correct_syntax = True
+		
 def chat_parser(filename, records):
 	global stopwords
 	global chat_os
@@ -76,21 +77,24 @@ def readfile(filename):
 
 	return content
 
-# Writes the stats to a file
+# Processes the stats and Writes the stats to a file
 def write_file():
 	global num_records
+	
+	if correct_syntax == False:
+		print("Number of records parameter is not an integer, using default 500 records")
 
 	ordered_global_dict = collections.OrderedDict(sorted(global_dict.items(), key=lambda t: t[1], reverse=True)) #Orders the global dict by word count
 	
 	dictlen = len(ordered_global_dict)
-	print "Total number of words - " + str(dictlen)
+	print("Total number of words - " + str(dictlen))
 
 	#Verify that the the number specified by user is not bigger than the maximum number of words found
 	if dictlen > num_records:
-		print "Only processing the top "+ str(num_records)+" words"
+		print("Only processing the top "+ str(num_records)+" words")
 	elif dictlen < num_records:
 		num_records = dictlen
-		print "Processing all "+ str(num_records)+" words"
+		print("Processing all "+ str(num_records)+" words")
 
 	start_time = time.time()
 
@@ -108,7 +112,7 @@ def write_file():
 	with open("Chat_DB_"+filename+".csv", "w") as output_file: 
 		output_file.write(content)
 		end_time = time.time() - start_time
-		print "Process took "+ str(end_time) + " seconds"
+		print("Process took "+ str(end_time) + " seconds")
 
 # Spits the line into an array with form: [date, name, message]
 def get_line_array(line):
@@ -214,7 +218,7 @@ def get_polarity(message):
 		
 	return blob_message.sentiment.polarity
 
-# Run the parser if the number of words is supplied
+# Run the parser if the number of words is supplied and checks if correct value type is supplied
 if len(sys.argv) == 2:
 	filename = sys.argv[1]
 	records = 500
@@ -223,6 +227,13 @@ if len(sys.argv) == 2:
 elif len(sys.argv) == 3:
 	filename = sys.argv[1]
 	records = sys.argv[2]
+	try: 
+		int(records)
+	except ValueError:
+		correct_syntax = False
+		print("Number of records parameter is not an integer, using default 500 records")
+		records = 500
+
 	chat_parser(filename, records)
 	
 else:
